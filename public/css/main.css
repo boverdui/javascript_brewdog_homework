@@ -1,7 +1,30 @@
-img {
-  width: 25px;
+#beer {
+  height: 100px;
+  margin-bottom: 10px;
+}
+
+body {
+  background-color: lightgray;
+  font-family: Arial;
 }
 
 ul {
   list-style: none;
+}
+
+#beers-dropdown, #logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#beer-info {
+  display: block;
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#logo-bar {
+  color:#00afdb;
 }

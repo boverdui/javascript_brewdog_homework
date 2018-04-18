@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   makeRequest(url, requestComplete);
 
   const dropdown = document.querySelector('#beers-dropdown');
-  dropdown.addEventListener('change', getBeerInfo);
+  dropdown.addEventListener('change', displayBeer);
 });
 
 const makeRequest = function (url, callback) {
@@ -19,11 +19,12 @@ const makeRequest = function (url, callback) {
 const requestComplete = function () {
   if (this.status !== 200) return;
   const jsonString = this.responseText;
-  beers = JSON.parse(jsonString);
-  populateDropdown();
+  const unsortedBeers = JSON.parse(jsonString);
+  beers = unsortedBeers.sort((a, b) => a.name < b.name ? -1 : 1);
+  populateDropdown(beers);
 }
 
-const populateDropdown = function () {
+const populateDropdown = function (beers) {
   const dropdown = document.querySelector('#beers-dropdown');
   for(let i = 0; i < beers.length; i++) {
     let option;
@@ -34,29 +35,30 @@ const populateDropdown = function () {
   }
 }
 
-const getBeerInfo = function (event) {
+const displayBeer = function() {
   const div = document.querySelector('#beer-info');
   div.innerHTML = '';
-  displayBeer(beers[this.value], div);
-}
-
-const displayBeer = function(beer, div) {
-  const ul = document.createElement('ul');
-  const beerName = document.createElement('li');
-  const beerTagLine = document.createElement('li');
-  const beerImage = document.createElement('li');
+  const beerName = document.createElement('h2');
+  const beerTagLine = document.createElement('h3');
+  const beerImage = document.createElement('div');
+  const beerDescription = document.createElement('div');
   const img = document.createElement('img');
-  const malts = document.createElement('li');
-  const hops = document.createElement('li');
-  const yeast = document.createElement('li');
+  const ingredients = document.createElement('h3');
+  const malts = document.createElement('div');
+  const hops = document.createElement('div');
+  const yeast = document.createElement('div');
 
+  const beer = beers[this.value];
   beerName.textContent = beer.name;
   beerTagLine.textContent = `"${beer.tagline}"`;
   img.src = beer.image_url;
+  img.id = "beer";
+  beerDescription.textContent = beer.description;
+  ingredients.textContent = 'Ingredients:'
 
   const maltNames = [];
   beer.ingredients.malt.forEach(malt => maltNames.push(malt.name));
-  malts.textContent = `Malts: ${maltNames.join(", ")}`;
+  malts.textContent = `Malt: ${maltNames.join(", ")}`;
 
   const hopNames = [];
   beer.ingredients.hops.forEach(hop => hopNames.push(hop.name));
@@ -64,12 +66,13 @@ const displayBeer = function(beer, div) {
 
   yeast.textContent = `Yeast: ${beer.ingredients.yeast}`;
 
-  div.appendChild(ul);
-  ul.appendChild(beerName);
-  ul.appendChild(beerTagLine);
-  ul.appendChild(beerImage);
+  div.appendChild(beerName);
+  div.appendChild(beerTagLine);
+  div.appendChild(beerImage);
   beerImage.appendChild(img);
-  ul.appendChild(malts);
-  ul.appendChild(hops);
-  ul.appendChild(yeast);
+  div.appendChild(beerDescription);
+  div.appendChild(ingredients);
+  div.appendChild(malts);
+  div.appendChild(hops);
+  div.appendChild(yeast);
 }
