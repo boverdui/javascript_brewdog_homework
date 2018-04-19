@@ -3,7 +3,7 @@ let beers = [];
 document.addEventListener('DOMContentLoaded', () => {
   const url = 'https://api.punkapi.com/v2/beers';
   makeRequest(url, requestComplete);
-
+  
   const dropdown = document.querySelector('#beers-dropdown');
   dropdown.addEventListener('change', displayBeer);
 });
@@ -12,7 +12,6 @@ const makeRequest = function (url, callback) {
   const request = new XMLHttpRequest();
   request.open('GET', url);
   request.send();
-
   request.addEventListener('load', callback);
 }
 
@@ -49,21 +48,20 @@ const displayBeer = function() {
   const yeast = document.createElement('div');
 
   const beer = beers[this.value];
+
   beerName.textContent = beer.name;
   beerTagLine.textContent = `"${beer.tagline}"`;
   img.src = beer.image_url;
   img.id = "beer";
   beerDescription.textContent = beer.description;
-  ingredients.textContent = 'Ingredients:'
 
+  ingredients.textContent = 'Ingredients:'
   const maltNames = [];
   beer.ingredients.malt.forEach(malt => maltNames.push(malt.name));
   malts.textContent = `Malt: ${maltNames.join(", ")}`;
-
   const hopNames = [];
   beer.ingredients.hops.forEach(hop => hopNames.push(hop.name));
   hops.textContent = `Hops: ${hopNames.join(", ")}`;
-
   yeast.textContent = `Yeast: ${beer.ingredients.yeast}`;
 
   div.appendChild(beerName);
