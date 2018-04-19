@@ -3,7 +3,7 @@ let beers = [];
 document.addEventListener('DOMContentLoaded', () => {
   const url = 'https://api.punkapi.com/v2/beers';
   makeRequest(url, requestComplete);
-  
+
   const dropdown = document.querySelector('#beers-dropdown');
   dropdown.addEventListener('change', displayBeer);
 });
@@ -52,7 +52,7 @@ const displayBeer = function() {
   beerName.textContent = beer.name;
   beerTagLine.textContent = `"${beer.tagline}"`;
   img.src = beer.image_url;
-  img.id = "beer";
+  img.id = "beer_image";
   beerDescription.textContent = beer.description;
 
   ingredients.textContent = 'Ingredients:'

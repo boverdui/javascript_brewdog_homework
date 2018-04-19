@@ -1,6 +1,19 @@
-#beer {
+#beers-dropdown, #logo {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#beer_image {
   height: 100px;
   margin-bottom: 10px;
+}
+
+#beer-info {
+  display: block;
+  width: 800px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 body {
@@ -10,19 +23,6 @@ body {
 
 ul {
   list-style: none;
-}
-
-#beers-dropdown, #logo {
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-#beer-info {
-  display: block;
-  width: 800px;
-  margin-left: auto;
-  margin-right: auto;
 }
 
 #logo-bar {
